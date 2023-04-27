@@ -5,28 +5,28 @@ from django.db import models
 class User(models.Model):
 
     #fields
-    UserID = models.CharField(MaxLength = 6, primary_key = True, unique=True)
-    Password = models.CharField(MaxLength = 100)
-    UserFirstName = models.CharField(MaxLength = 20)
-    UserLastName = models.CharField(MaxLength = 20)
-    PhoneNumber = models.CharField(MaxLength = 6)
+    UserID = models.CharField(max_length = 6, primary_key = True, unique=True)
+    Password = models.CharField(max_length = 100)
+    UserFirstName = models.CharField(max_length = 20)
+    UserLastName = models.CharField(max_length = 20)
+    PhoneNumber = models.CharField(max_length = 6)
     Email = models.EmailField()
-    AddressLine1 = models.CharField(MaxLength = 50)
-    AddressLine2 = models.CharField(MaxLength = 50)
-    City = models.CharField(MaxLength = 50)
-    State = models.CharField(MaxLength = 20)
-    ZipCode = models.CharField(MaxLength = 5)
-    UserTypeID = models.ForeignKey('UserType')
-    NumBooksLost = models.IntegerField(MaxLength = 6, default=0)
-    TotalFeesDue = models.IntegerField(MaxLength = 6, default = 0)
+    AddressLine1 = models.CharField(max_length = 50)
+    AddressLine2 = models.CharField(max_length = 50)
+    City = models.CharField(max_length = 50)
+    State = models.CharField(max_length = 20)
+    ZipCode = models.CharField(max_length = 5)
+    UserTypeID = models.ForeignKey('UserType', on_delete=models.SET_DEFAULT, default=0)
+    NumBooksLost = models.IntegerField(max_length = 6, default=0)
+    TotalFeesDue = models.IntegerField(max_length = 6, default = 0)
 
 class UserType(models.Model):
-    UserTypeID = models.CharField(MaxLength = 5, primary_key=True, unique=True)
-    UserType = models.CharField()
+    UserTypeID = models.CharField(max_length = 5, primary_key=True, unique=True)
+    UserType = models.CharField(max_length=20)
 
 class Rental(models.Model):
-    UserID = models.ForeignKey('User', primary_key=True)
-    ISBN = models.ForeignKey('Book', primary_key=True)
+    UserID = models.ForeignKey('User', on_delete=models.SET_DEFAULT, primary_key=True, default=0)
+    ISBN = models.ForeignKey('Book', on_delete=models.SET_DEFAULT, primary_key=True, default=0)
     DateRented = models.DateField()
     RenewalDate = models.DateField()
     FeeIfLate = models.IntegerField()
@@ -35,19 +35,19 @@ class Book(models.Model):
     ISBN = models.IntegerField(max_length=13, primary_key=True, unique=True)
     Title = models.CharField(max_length=100)
     NumPages = models.BigIntegerField()
-    SeriesID = models.ForeignKey('Series')
+    SeriesID = models.ForeignKey('Series', on_delete=models.SET_DEFAULT, default=0)
     ReleaseDate = models.DateField()
-    BookType = models.ForeignKey('BookType')
-    Genre = models.ForeignKey('BookGenre')
+    BookType = models.ForeignKey('BookType', on_delete=models.SET_DEFAULT, default=0, max_length=20)
+    Genre = models.ForeignKey('BookGenre', on_delete=models.SET_DEFAULT, default=0)
 
 class BookAuthor(models.Model):
-    AuthorID = models.ForeignKey('Author', primary_key=True, unique=True)
-    ISBN = models.ForeignKey('Book', primary_key=True)
+    AuthorID = models.ForeignKey('Author', on_delete=models.SET_DEFAULT, primary_key=True, unique=True, default=0)
+    ISBN = models.ForeignKey('Book', on_delete=models.SET_DEFAULT, primary_key=True, default=0)
 
 class Author(models.Model):
-    AuthorID = models.CharField(Max_length = 10, primary_key=True, unique=True)
-    AuthorFirstName = models.CharField()
-    AuthorLastName = models.CharField()
+    AuthorID = models.CharField(max_length = 10, primary_key=True, unique=True)
+    AuthorFirstName = models.CharField(max_length=50)
+    AuthorLastName = models.CharField(max_length=50)
     Alive = models.BooleanField()
 
 class Series(models.Model):
@@ -55,7 +55,7 @@ class Series(models.Model):
     SeriesName = models.CharField(max_length=50)
 
 class BookType(models.Model):
-    BookType = models.CharField(primary_key=True, unique=True)
+    BookType = models.CharField(primary_key=True, unique=True, max_length=20)
 
 class BookGenre(models.Model):
     Genre = models.CharField(max_length=50, primary_key=True, unique=True)
