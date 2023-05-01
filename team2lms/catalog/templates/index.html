@@ -1,14 +1,22 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Local Library Home</h1>
-  <p>Welcome to , a website developed by <em>Software Engineer Team 2</em>!</p>
-  <h2>Dynamic content</h2>
+{% load static %}
+  
+<body style="background-color:#FFAFC5;">
+  <h1>Home</h1>
+  
+
+ 
+ <p>Welcome to Spectacular Stacks, a website developed by <em>Software Engineer Team 2</em>!</p>
   <p>The library has the following record counts:</p>
-  <ul>
-    <li><strong>Books:</strong> {{ num_books }}</li>
+     <nav>
+       <ul>
+    <li> <strong>Books:</strong> {{ num_books }}</li>
     <li><strong>Copies:</strong> {{ num_instances }}</li>
     <li><strong>Copies available:</strong> {{ num_instances_available }}</li>
     <li><strong>Authors:</strong> {{ num_authors }}</li>
-  </ul>
+	</ul>
+  </nav>
+  </body>
 {% endblock %}
