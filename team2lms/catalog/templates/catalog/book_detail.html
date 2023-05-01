@@ -3,12 +3,13 @@
 {% block content %}
   <h1>Title: {{ book.title }}</h1>
 
+<nav>
   <p><strong>Author:</strong> <a href="">{{ book.author }}</a></p> <!-- author detail link not yet defined -->
   <p><strong>Summary:</strong> {{ book.summary }}</p>
   <p><strong>ISBN:</strong> {{ book.isbn }}</p>
-  <p><strong>Language:</strong> {{ book.language }}</p>
+  <p><strong>Language: </strong> English {{ book.language }}</p>
   <p><strong>Genre:</strong> {{ book.genre.all|join:", " }}</p>
-
+</nav>
   <div style="margin-left:20px;margin-top:20px">
     <h4>Copies</h4>
 
