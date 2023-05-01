@@ -9,6 +9,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
     """Generic class-based view listing books on loan to current user."""
     model = BookInstance
@@ -21,6 +23,7 @@ class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
             .filter(status__exact='o')
             .order_by('due_back')
         )
+
 
 
 def index(request):
@@ -45,3 +48,16 @@ def index(request):
 
     # Render the HTML template index.html with the data in the context variable
     return render(request, 'index.html', context=context)
+
+class BookDetailView(generic.DetailView):
+    model = Book
+
+class BookListView(generic.ListView):
+    model = Book
+    paginate_by = 10
+
+class AuthorListView(generic.ListView):
+    model = Author
+
+class AuthorDetailView(generic.DetailView):
+    model = Author
