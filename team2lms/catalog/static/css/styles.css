@@ -3,9 +3,3 @@
   padding: 0;
   list-style: none;
 }
-#sidebar{
-	position: fixed;
-	width: 30%;
-	height: 100%;
-	background-color: #96BDC6;
-}
