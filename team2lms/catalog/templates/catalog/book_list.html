@@ -1,13 +1,52 @@
-{% extends "base_generic.html" %}
 
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block title %}<title>Local Library</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Add additional CSS in static file -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/stylesbookList.css' %}">
+</head>
+<header>
+<!-- <img style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" src="{% static "catalog/libheader01.jpg" %}" alt="My image"/> -->
+</header>
+
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-2">
+      {% block sidebar %}
+	  <nav>
+  	   <ul >
+          <li><a href="{% url 'index' %}">Home</a></li>
+          <li><a href="{% url 'books' %}">All books</a></li>
+          <li><a href="{% url 'authors' %}">All authors</a></li>
+          {% if user.is_authenticated %}
+            <li style="display: flex align-items: center; font-family: arial;font-size: 1.15em; text-decoration: none; text-transform: capitalize; color: #000; padding: 10px 30px; height: 50px; transition: .5s ease; border-radius: 0 30px;">User: {{ user.get_username }}</li>
+            <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
+          {% else %}
+            <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
+          {% endif %}
+        </ul>
+		</nav>
+     {% endblock %}
+      </div>
+      <div class="col-sm-10 ">{% block content %}{% endblock %}</div>
+    </div>
+  </div>
+  
+  
 <style>
 body{
 }
 </style>
 <body>
   <h1 style="text-align: center">Book List</h1>
-  {% if book_list %}
+<div id="listbooks"> 
+
+ {% if book_list %}
   <ul>
     {% for book in book_list %}
       <li style="list-style: none; margin-top: 30px; margin-left: auto; margin-right: auto;">
@@ -19,5 +58,9 @@ body{
     <p>There are no books in the library.</p>
 
   {% endif %}
-  </body>
-{% endblock %}
+  </div>
+
+
+</body>
+
+</html>

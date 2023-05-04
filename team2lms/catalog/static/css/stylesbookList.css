@@ -55,11 +55,14 @@ body{
 	 background-size: 100% 100%;
 	 
 }
-
 .bookcontent{
 	margin-left: 300px;
 }
 
 .content{
 	margin-left: 50px;
+}
+
+#listbooks{
+	margin-left: 300px;
 }
