@@ -1,10 +1,48 @@
-{% extends "base_generic.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block title %}<title>Local Library</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Add additional CSS in static file -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/detail.css' %}">
+</head>
+ <img src="/static/catalog/logo.png" alt="My image"/>
 
-{% block content %}
+<header>
+<!-- <img style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" src="{% static "catalog/libheader01.jpg" %}" alt="My image"/> -->
+</header>
+<body>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-2">
+      {% block sidebar %}
+	  <nav>
+  	   <ul >
+          <li><a href="{% url 'index' %}">Home</a></li>
+          <li><a href="{% url 'books' %}">All books</a></li>
+          <li><a href="{% url 'authors' %}">All authors</a></li>
+          {% if user.is_authenticated %}
+            <li style="display: flex align-items: center; font-family: arial;font-size: 1.15em; text-decoration: none; text-transform: capitalize; color: #000; padding: 10px 30px; height: 50px; transition: .5s ease; border-radius: 0 30px;">User: {{ user.get_username }}</li>
+            <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
+          {% else %}
+            <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
+          {% endif %}
+        </ul>
+		</nav>
+     {% endblock %}
+      </div>
+      <div class="col-sm-10 ">{% block content %}{% endblock %}</div>
+    </div>
+  </div>
+  
+  <div id="detailinfo">
   <h1>Author: {{ author.first_name }} {{ author.last_name }}</h1>
 
 
-<p>{{author.date_of_birth}} - {% if author.date_of_death %}{{author.date_of_death}}{% endif %}</p>
+<p> Birthday: {{author.date_of_birth}} - {% if author.date_of_death %}  Death: {{author.date_of_death}}{% endif %}</p>
 
 <div style="margin-left:20px;margin-top:20px">
 <h4>Books</h4>
@@ -16,4 +54,9 @@
 {% endfor %}
 </dl>
 
-{% endblock %}
+  </div>
+	</div>
+
+
+</body>
+</html>

@@ -63,10 +63,10 @@ body{
 	margin-left: 50px;
 }
 
-#listbooks{
+#detailinfo{
 	  font-family: Lucida Console;
-
-	text-align: center;
+	margin-left: 400px;
+	margin-right: 100px;
 }
 #listbooks p{
 	  padding: 10px;

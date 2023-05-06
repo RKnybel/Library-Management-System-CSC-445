@@ -6,8 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Add additional CSS in static file -->
   {% load static %}
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'css/detail.css' %}">
 </head>
+ <img src="/static/catalog/logo.png" alt="My image"/>
+
 <header>
 <!-- <img style="max-width: 100%; display: block; margin-left: auto; margin-right: auto;" src="{% static "catalog/libheader01.jpg" %}" alt="My image"/> -->
 </header>
@@ -36,8 +38,9 @@
     </div>
   </div>
   
+  <div id="detailinfo">
 
-  <h1>Title: {{ book.title }}</h1>
+  <h1 style="text-align: center; padding-bottom: 10px;">Title: {{ book.title }}</h1>
 
   <p><strong>Author:</strong> <a href="">{{ book.author }}</a></p> <!-- author detail link not yet defined -->
   <p><strong>Summary:</strong> {{ book.summary }}</p>
@@ -60,7 +63,7 @@
       <p class="text-muted"><strong>Id:</strong> {{ copy.id }}</p>
     {% endfor %}
   </div>
-
+	</div>
 
 
 </body>
